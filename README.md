@@ -62,6 +62,15 @@ This project aims to build a **binary sentiment classification model** to analyz
 
 ---
 
+
+### Dimenstionality Reduction
+
+
+- **Dimensionality Reduction** is performed using **Truncated SVD** (Singular Value Decomposition).
+- It reduces the high-dimensional TF-IDF feature space into a more compact representation, improving model efficiency and generalization by retaining the most informative components.
+
+---
+
 ### Modeling
 
 #### Models Explored:
@@ -151,27 +160,47 @@ project/
 └── requirements.txt
 ```
 
----
-
-###  Workflow Overview
-
-#### **Training (train.py)**
-- Load preprocessed train/test data from `/data/processed/`
-- Train **Logistic Regression** model
-- Evaluate and log metrics like train and test accuracy
-- Save model as `logreg_model.pkl` and vectoriser as `tfidf.pkl`
 
 
-####  **Inference (inference.py)**
-- Load the trained model and vectorizer from the `outputs\models` directory
-- Predict on test set using the model
-- Calculate and log: accuracy, precision, recall, F1-score, ROC AUC
-- Save predictions to `predictions.csv`
-- Save artifacts (confusion matrix, classification report, ROC curve)
+##  Workflow Overview
 
+### Training (`train.py`)
 
+- Loads preprocessed training data from `/data/processed/processed_train.parquet`
+- Transforms text using:
+  - **TF-IDF vectorization**
+  - **Truncated SVD** for dimensionality reduction
+- Trains a **Logistic Regression** model on the reduced features
+- Evaluates the model using accuracy score
+- Logs parameters, metrics, and training duration with **MLflow**
+- Saves the following artifacts to `/outputs/models/`:
+  - Trained model as `logreg_model.pkl`
+  - TF-IDF vectorizer as `tfidf.pkl`
+  - SVD transformer as `svd.pkl`
 
 ---
+
+###  Inference (`inference.py`)
+
+- Loads inference data from `/data/processed/processed_test.parquet`
+- Loads trained artifacts from `/outputs/models/`:
+  - `logreg_model.pkl`, `tfidf.pkl`, and `svd.pkl`
+- Applies **TF-IDF vectorization** and **SVD** to the test data
+- Performs sentiment prediction using the trained model
+- If ground truth labels are available, computes:
+  - Accuracy, Precision, Recall, F1-Score
+  - ROC AUC score
+- Logs all metrics and evaluation artifacts using **MLflow**
+- Saves outputs to `/outputs/predictions/`:
+  - Predictions as `predictions.csv`
+  - Evaluation reports:
+    - `classification_report.txt`
+    - `confusion_matrix.png`
+    - `roc_auc_curve.png`
+
+---
+
+
 
 ###  Dockerization
 
