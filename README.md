@@ -38,10 +38,6 @@ This project aims to build a **binary sentiment classification model** to analyz
   - Positive sentiments: Words like _“great”_, _“amazing”_, _“love”_ were prominent.
   - Negative sentiments: Words like _“boring”_, _“waste”_, _“bad”_ were frequent.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 ---
 
 ###  Text Preprocessing
@@ -81,10 +77,6 @@ This project aims to build a **binary sentiment classification model** to analyz
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 #### Final Model Selection:
 - **Logistic Regression** chosen due to:
   - **Highest accuracy (86%)**
@@ -94,11 +86,7 @@ This project aims to build a **binary sentiment classification model** to analyz
 
 ### Overall Performance Evaluation
 
-<<<<<<< HEAD
 - **Accuracy**: 86%
-=======
-- **Accuracy**: 86.07%
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 - **F1-Score**: 0.86 (both classes)
 - **Inference ready** and generalizes well to unseen data.
 
@@ -142,11 +130,7 @@ project/
 │       ├── processed_train.parquet
 │       ├── processed_test.parquet
 ├── notebooks/
-<<<<<<< HEAD
-│   └── FinalProject.ipynb
-=======
 │   └── Final_Project.ipynb
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 ├── outputs/
 │   ├── models/
 │   │   ├── logreg_model.pkl
@@ -162,11 +146,7 @@ project/
 │   │   ├── training.py
 │   │   └── Dockerfile
 │   └── inference/
-<<<<<<< HEAD
-│       ├── inference.py
-=======
 │       ├── infer.py
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 │       └── Dockerfile
 └── requirements.txt
 ```
@@ -180,7 +160,6 @@ project/
 - Train **Logistic Regression** model
 - Evaluate and log metrics like train and test accuracy
 - Save model as `logreg_model.pkl` and vectoriser as `tfidf.pkl`
-<<<<<<< HEAD
 
 
 ####  **Inference (inference.py)**
@@ -228,54 +207,6 @@ After running this file you can see a new directory in `data\` directory named `
 
 ###  2. Train the Logistic Regression Model
 
-=======
-
-
-####  **Inference (inference.py)**
-- Load the trained model and vectorizer from the `outputs\models` directory
-- Predict on test set using the model
-- Calculate and log: accuracy, precision, recall, F1-score, ROC AUC
-- Save predictions to `predictions.csv`
-- Save artifacts (confusion matrix, classification report, ROC curve)
-
-
----
-
-###  Dockerization
-
-#### **Training Docker Image**
-- Built using `Dockerfile` in `src/train/` directory
-- Mounts `/outputs/` to persist trained model and logs
-
-#### **Inference Docker Image**
-- Built using `Dockerfile` in `src/inference/` directory
-- Outputs predictions and evaluation artifacts and saves them to  `/outputs/predictions/`
-
----
-
-### How to Run
-
-#### prerequisites
-
-```bash
-git clone https://github.com/AmbekatTejas-epam/Final_Project.git
-cd Final_Project
-```
-
-Ensure **Docker** is installed: [Install Docker](https://www.docker.com/products/docker-desktop)
-
----
-### 1. Loading Data
-For loading the data from the `data\raw` directory and preprocess it run the load_data.py file from `src\` directory using the below command
-```bash
-python src/load_data.py
-```
-After running this file you can see a new directory in `data\` directory named `processed` which contains `processed_train.parquet` and `processed_test.parquet` data files. For training the model we use the processed data.
-
-
-###  2. Train the Logistic Regression Model
-
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 Build the Docker Image using the below command
 ```bash
 docker build -t sentiment-train -f src/train/Dockerfile .
@@ -331,7 +262,6 @@ Open the URL provided in the terminal (e.g., `http://127.0.0.1:5000`) in a web b
 
 | Sentiment | Precision | Recall | F1-Score | Support |
 |-----------|-----------|--------|----------|---------|
-<<<<<<< HEAD
 | Negative  | 0.87     | 0.85   | 0.86     | 4992    |
 | Positive  | 0.85      | 0.87   | 0.86     | 4995    |
 | **Accuracy** |        |        | **0.86** | **9987** |
@@ -341,17 +271,6 @@ Open the URL provided in the terminal (e.g., `http://127.0.0.1:5000`) in a web b
 
 
 - **Overall Accuracy**: **86%**
-=======
-| Negative  | 0.90      | 0.88   | 0.89     | 4992    |
-| Positive  | 0.88      | 0.90   | 0.89     | 4995    |
-| **Accuracy** |        |        | **0.89** | **9987** |
-| **Macro Avg** | 0.89  | 0.89   | 0.89     | 9987    |
-| **Weighted Avg** | 0.89 | 0.89 | 0.89     | 9987    |
-
-
-
-- **Overall Accuracy**: **89%**
->>>>>>> 1ffa665df608828cb91020fb557d506038d0385f
 
 ---
 
