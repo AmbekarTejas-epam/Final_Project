@@ -1,63 +1,71 @@
-# Final_Project
+
 # Sentiment Analysis Project: Binary Classification of Movie Reviews
 
-# DS Part :
+## Data Science Part
 
-## Introduction
+###  Introduction
+This project aims to build a **binary sentiment classification model** to analyze movie reviews. The objective is to predict whether a review expresses a **positive** or **negative** sentiment. We utilized a dataset of **50,000 movie reviews**, which are split between training and testing. The project involves data preprocessing, EDA, feature engineering(tokenization, stop-words filtering, stemming, lemmatization and vectorization), model training, and evaluation.
 
-This project involves building a binary sentiment classification model for movie reviews, with labels indicating positive or negative sentiments. The dataset used contains 50,000 movie reviews, split into training and testing sets. The objective is to accurately predict the sentiment of a review using machine learning techniques.
+---
 
-## Tools and Libraries Used
+###  Tools and Libraries Used
 
-- **Google Colab** (for implementation)
-- **Python Libraries**: Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, and NLTK
+- **Platform**: VS code and Google Colab (for prototyping and EDA)
+- **Languages & Libraries**:
+  - `Python` (Core language)
+  - `Pandas`, `NumPy` (Data manipulation)
+  - `Matplotlib`, `Seaborn` (Visualization)
+  - `Scikit-learn` (Machine learning models and metrics)
+  - `NLTK` (Text preprocessing)
 
-## Exploratory Data Analysis (EDA)
+---
 
-### Key Insights:
+###  Exploratory Data Analysis (EDA)
 
-- The dataset is balanced, with an equal number of positive and negative reviews (25,000 each in the training set).
+####  Key Insights:
+- Dataset is **balanced**, containing **20,000 positive** and **20,000 negative** reviews in the training set.
+- It have balanced test set as well with **5000 positive** and **5000 negative** reviews
+- However the dataset contains 272 duplicate reviews in the training set and 13 duplicate reviews in the testing set.
+- **Review Length**:
+  - Word count ranges: **10 – 2,500** (avg. ~300 words)
+  - Character count: avg. ~1,500 characters
+- No need for data balancing due to equal sentiment distribution.
+
+
+####  Visualizations:
+- **Histograms** for word and character counts revealed **right-skewed** distributions.
+- **Word Clouds**:
+  - Positive sentiments: Words like _“great”_, _“amazing”_, _“love”_ were prominent.
+  - Negative sentiments: Words like _“boring”_, _“waste”_, _“bad”_ were frequent.
+
+
+---
+
+###  Text Preprocessing
+
+####  Steps Performed:
+- **Tokenization**: Splitting reviews into individual tokens.
+- **Stop-word Removal**: Removed common stop-words like _“the”_, _“is”_, etc.
   
-### Review Lengths:
+####  Stemming vs Lemmatization:
+- **Stemming**: Reduced words but harmed readability (_“running” → “run”_).
+- **Lemmatization**: Retained meaningful word forms and improved interpretability (_“running” → “running”_).
 
-- **Word count**: Ranges from 10 to 2,500 words, with an average of ~300 words.
-- **Character count**: Average of ~1,500 characters per review.
+**Conclusion**: **Lemmatization** chosen for its semantic clarity.
 
-Sentiments are equally distributed, eliminating the need for data balancing techniques.
+---
 
-### Visualizations:
+### Vectorization
 
-- **Histograms** for word and character counts revealed right-skewed distributions.
-- **Word clouds** highlighted common words for both positive and negative sentiments.
+- **TF-IDF Vectorizer**:
+  - Chosen over CountVectorizer due to its ability to **down-weight frequently occurring but less informative words**.
+  - Enhanced focus on sentiment-bearing terms.
 
-## Text Preprocessing
+---
 
-### Steps Performed:
+### Modeling
 
-- **Tokenization**: Split text into individual words.
-- **Stop-word Removal**: Removed common words (e.g., "the", "and", "is") to focus on meaningful terms.
-
-### Comparison: Stemming vs Lemmatization:
-
-- **Stemming**: Reduced words to their base forms but introduced readability issues (e.g., "running" → "run").
-- **Lemmatization**: Retained meaningful forms of words and preserved context (e.g., "running" → "running").
-
-**Conclusion**: Lemmatization was chosen for better semantic retention.
-
-### Vectorization:
-
-- **TF-IDF Vectorization**: Performed better than Count Vectorization by emphasizing important words while down-weighting frequent but less meaningful ones.
-
-## Modeling
-
-### Models Explored:
-
-- **Logistic Regression**
-- **Support Vector Machine (SVM)**
-- **Naive Bayes**
-
-### Performance Comparison:
-
+#### Models Explored:
 | Rank | Model                | Vectorizer | Dimensionality Reduction | Accuracy | F1 Score | Recall | Support |
 |------|----------------------|------------|---------------------------|----------|----------|--------|---------|
 | 1    | **Naive Bayes**      | TF-IDF     | (No reduction)         | **0.8641** | 0.86     | 0.86   | 9987    |
@@ -70,190 +78,205 @@ Sentiments are equally distributed, eliminating the need for data balancing tech
 
 
 
-
-## Final Model Selection:
-
-- **Logistic Regression** was chosen as the final model due to its highest overall accuracy (86%) and balanced performance across all metrics.
-
-## Overall Performance Evaluation
-
-The **Logistic Regression model** achieved:
-
-- **Accuracy**: 86%
-- **F1-Score**: 0.86 (both positive and negative classes)
-
-This demonstrates the model's ability to generalize well on unseen data.
-
-## Business Applications
-
-1. **Customer Feedback Analysis**: Understanding customer sentiment from reviews can help businesses improve their products or services.
-2. **Content Moderation**: Automatically flagging negative reviews for quick resolution.
-3. **Market Research**: Identifying trends and patterns in customer opinions.
+#### Final Model Selection:
+- **Logistic Regression** chosen due to:
+  - **Highest accuracy (86%)**
+  - **Balanced precision, recall, and F1-score**
 
 ---
 
-# MLE Part :
+### Overall Performance Evaluation
 
-## Introduction
+- **Accuracy**: 86%
+- **F1-Score**: 0.86 (both classes)
+- **Inference ready** and generalizes well to unseen data.
 
-The objective of this part of the project is to implement machine learning operations (MLE) for binary sentiment classification of movie reviews. Using the Logistic Regression model, the task is to train a model on pre-processed data, perform inference, and evaluate the performance metrics of the model.
+---
 
-## Directory Structure
+### Business Applications
+**For Filmmakers:**
+Review sentiment can be used by movie studios to know what was liked or not liked by people in a film such as the plot, acting, or music. They can make wiser choices regarding future films, sequels, or edits because of this. If they also gather more data such as age or location of viewers, then they can make films that various segments like.
 
-The project follows a structured directory layout for clear organization and management of files:
+**For Streaming Platforms:**
+Such platforms as Netflix or Amazon Prime can utilize this analysis to suggest improved shows or determine what films to promote more. If reviews indicate that people enjoy a movie, it can be promoted; otherwise, adjustments can be made. The fact that people like something in some places can also be used to display the appropriate content, at the right time and to the correct viewers.
 
-- **data/**: Contains training and inference datasets.
-  - **processed/**: Processed datasets for training and testing.
-  - **raw/**: Raw data files before preprocessing.
-    - `test.csv`: Raw test data.
-    - `train.csv`: Raw training data.
+**For Marketing Teams:**
+Marketing teams are able to review the sentiment of reviews and determine if their ads and trailers are performing effectively. If they don't do so, they can immediately make adjustments in their campaigns. This assists in spending money wiser and targeting the proper audience with the proper message.
 
-- **notebooks/**: Jupyter notebook(s) for data science analysis.
-  - `DS_part.ipynb`: Notebook for data science part of the project.
+**For Box Office Projections:**
+By reading early reviews, theaters and studios can estimate how well a film will perform based on ticket sales. If a film is receiving positive reviews, they may schedule additional showtimes. In the long run, they can utilize this information to plan releases better and make more money.
 
-- **outputs/**: Stores model files and prediction results.
-  - **models/**: Contains saved models and their metadata.
-    - `logreg_model.pkl`: Trained Logistic Regression model.
-    - `classification_report`: Model evaluation metrics.
+**To Create New Spin-Offs or Series:**
+If audiences adore a particular character or aspect of the story, filmmakers can strategize spin-offs, sequels, or even merchandise based on it. Observing which sections receive the most positive reaction keeps fans engaged and creates successful franchises.
 
-- **src/**: Contains all source code for training and inference.
-  - **inference/**: Inference-related scripts and Dockerfile.
-    - `Dockerfile`: Dockerfile for building the inference image.
-    - `infer.py`: Python script for inference.
-  - **train/**: Training-related scripts and Dockerfile.
-    - `Dockerfile`: Dockerfile for building the training image.
-    - `train.py`: Python script for training the model.
-    - `data_loader.py`: Python script for loading dataset and text preprocessing.
+---
 
-- **requirements.txt**: Lists the dependencies required to run the project.
+##  Machine Learning Engineering (MLE) Part
 
+### Introduction
 
+The MLE component focuses on **operationalizing** the sentiment classification pipeline. Using the final Logistic Regression model, the objective is to implement robust **training and inference scripts**, enable **reproducibility**, and **containerize the solution** using Docker.
 
-## Tools and Libraries Used
+---
 
-- **Python**: For data processing, model training, and evaluation.
-- **Scikit-learn**: Used for implementing Logistic Regression and evaluation metrics.
-- **NumPy**: For numerical operations.
-- **Docker**: To containerize and manage the training and inference processes.
-- **Joblib**: For saving and loading the trained model.
+### Directory Structure
 
-## Workflow Overview
+```
+project/
+├── data/
+│   ├── raw/
+│   │   ├── train.csv
+│   │   └── test.csv
+│   └── processed/
+│       ├── processed_train.parquet
+│       ├── processed_test.parquet
+├── notebooks/
+│   └── FinalProject.ipynb
+├── outputs/
+│   ├── models/
+│   │   ├── logreg_model.pkl
+|   |   ├── tfidf.pkl
+│   ├── predictions/
+│   |   ├── predictions.csv
+│   |   ├── metrics.txt
+│   |   ├── confusion_matrix.png
+│   |   └── roc_auc_curve.png
+|   └── mlruns/
+├── src/
+│   ├── train/
+│   │   ├── training.py
+│   │   └── Dockerfile
+│   └── inference/
+│       ├── inference.py
+│       └── Dockerfile
+└── requirements.txt
+```
 
-1. **Training Model (`train.py`)**:
-    - Load pre-processed training and test data.
-    - Train a Logistic Regression model.
-    - Evaluate the model and save the trained model and metrics.
-    - The model is saved as a `.pkl` file, and metrics are saved to a `.txt` file.
+---
 
-2. **Inference (`infer.py`)**:
-    - Load the trained model.
-    - Load pre-processed test data.
-    - Perform predictions on the test data.
-    - Calculate evaluation metrics.
-    - Save predictions and metrics to output directories.
+###  Workflow Overview
 
-## Model Training Process
-
-The `train.py` script runs the Logistic Regression model training and evaluation. Here's how it works:
-
-1. **Loading Data**: The script loads the processed training and testing data from the `/data/processed/` directory.
-2. **Model Training**: Logistic Regression is trained on the training dataset (`processed_train.parquet`).
-3. **Evaluation**: After training, the model is evaluated on the test data, and a classification report is generated. The accuracy of the model is calculated and saved along with the full classification report.
-4. **Saving Results**: The model is saved in the `/outputs/models/` directory as `logreg_model.pkl`. The evaluation metrics are saved in `/outputs/classification_report.txt`.
-
-
-
-## Inference Process
-
-Once the model is trained, the `infer.py` script performs the inference on new data using the trained model:
-
-1. **Loading the Model**: The trained model (`logreg_model.pkl`) is loaded from the `/outputs/models/` directory.
-2. **Loading Test Data**: The test features are loaded from the `/data/processed/` directory.
-3. **Making Predictions**: The model performs predictions on the test set.
-4. **Metrics Calculation**: The performance metrics (accuracy, precision, recall, F1-score) are calculated and saved.
-5. **Saving Predictions and Metrics**: The predictions are saved in the `/outputs/predictions/` directory.
+#### **Training (train.py)**
+- Load preprocessed train/test data from `/data/processed/`
+- Train **Logistic Regression** model
+- Evaluate and log metrics like train and test accuracy
+- Save model as `logreg_model.pkl` and vectoriser as `tfidf.pkl`
 
 
+####  **Inference (inference.py)**
+- Load the trained model and vectorizer from the `outputs\models` directory
+- Predict on test set using the model
+- Calculate and log: accuracy, precision, recall, F1-score, ROC AUC
+- Save predictions to `predictions.csv`
+- Save artifacts (confusion matrix, classification report, ROC curve)
 
-## Dockerization
 
-Both the training and inference processes are dockerized for consistency and portability:
 
-1. **Training Docker Image**:
-    - Built from the `Dockerfile` in the `/src/train/` directory.
-    - The container runs `train.py` and outputs the trained model and evaluation metrics.
+---
 
-2. **Inference Docker Image**:
-    - Built from the `Dockerfile` in the `/src/inference/` directory.
-    - The container runs `infer.py` and outputs the predictions and evaluation metrics.
+###  Dockerization
 
-To build and run the Docker containers:
+#### **Training Docker Image**
+- Built using `Dockerfile` in `src/train/` directory
+- Mounts `/outputs/` to persist trained model and logs
 
-## How to Run
+#### **Inference Docker Image**
+- Built using `Dockerfile` in `src/inference/` directory
+- Outputs predictions and evaluation artifacts and saves them to  `/outputs/predictions/`
 
-### Prerequisites
+---
 
-1. **Clone the repository** to your local machine:
-    ```bash
-    git clone <repository_url>
-    cd <repository_folder>
-    ```
-   i.e. repository_folder (final-project)
+### How to Run
 
-2. **Ensure that you have Docker installed** on your machine. If not, you can download and install Docker from [here](https://www.docker.com/products/docker-desktop).
+#### prerequisites
 
-### Steps
+```bash
+git clone https://github.com/AmbekarTejas-epam/Final_Project.git
+cd Final_Project
+```
 
-#### 1. Train the Logistic Regression Model
+Ensure **Docker** is installed: [Install Docker](https://www.docker.com/products/docker-desktop)
 
-To train the Logistic Regression model using the pre-processed data, run the following command inside the cloned repo folder:
+---
+### 1. Loading Data
+For loading the data from the `data\raw` directory and preprocess it run the load_data.py file from `src\` directory using the below command
+```bash
+python src/load_data.py
+```
+After running this file you can see a new directory in `data\` directory named `processed` which contains `processed_train.parquet` and `processed_test.parquet` data files. For training the model we use the processed data.
 
+
+###  2. Train the Logistic Regression Model
+
+Build the Docker Image using the below command
 ```bash
 docker build -t sentiment-train -f src/train/Dockerfile .
 
+```
+Run the docker container using the below command for training the model
+```bash
 docker run --rm `
   -v ${PWD}\data:/app/data `
   -v ${PWD}\outputs:/app/outputs `
   -v ${PWD}\outputs\mlruns:/app/mlruns `
   sentiment-train
 ```
-- This will load the pre-processed training data (which is already available in the repository after cloning).
-- The model will be trained and evaluated, and the results (metrics) will be saved in the outputs folder.
-- The trained model will be saved as logreg_model.pkl.
 
+---
 
-
-#### 2. Run Inference on the Test Data
-
-To perform inference using the trained model, run the following command:
-
+### 3. Run Inference
+Build the docker image using the below command for inference
 ```bash
 docker build -t sentiment-infer -f src/inference/Dockerfile .
-
+```
+Run the inference container using the below command
+```bash
 docker run --rm `
   -v ${PWD}\data:/app/data `
   -v ${PWD}\outputs:/app/outputs `
   -v ${PWD}\outputs\mlruns:/app/mlruns `
   sentiment-infer
+
 ```
-- This will load the trained model and the test data, perform predictions
 
-to view the results in mlflow ui
+This saves:
+- `predictions.csv`
+- `metrics.txt`
+- `confusion_matrix.png`
+- `roc_auc_curve.png`
 
-```bash
+---
+## MLflow Logging
+
+To view logged metrics and artifacts in MLflow:
+
+```bash 
 python -m mlflow ui --backend-store-uri outputs/mlruns --port 5000
 ```
 
-## Model Evaluation
+Open the URL provided in the terminal (e.g., `http://127.0.0.1:5000`) in a web browser. In that click on the experiment names on the sidebar and click on the latest model and go to Model metrics to view the logged metrics.
 
-- **Training Accuracy:** 89%
-- **Evaluation Metrics:**
-   - **Precision:** 0.90 (Negative), 0.88 (Positive)
-   - **Recall:** 0.87 (Negative), 0.90 (Positive)
-   - **F1-Score:** 0.89 (Negative), 0.89 (Positive)
+##  Model Evaluation (Final Results)
+
+- **Classification Report**
+
+
+| Sentiment | Precision | Recall | F1-Score | Support |
+|-----------|-----------|--------|----------|---------|
+| Negative  | 0.87     | 0.85   | 0.86     | 4992    |
+| Positive  | 0.85      | 0.87   | 0.86     | 4995    |
+| **Accuracy** |        |        | **0.86** | **9987** |
+| **Macro Avg** | 0.86  | 0.86   | 0.86     | 9987    |
+| **Weighted Avg** | 0.86 | 0.86 | 0.86     | 9987    |
+
+
+
+- **Overall Accuracy**: **86%**
+
+---
 
 ## Conclusion
 
-The Logistic Regression model achieved a strong balance between precision, recall, and F1-score, with an overall accuracy of 89%.
+The **Logistic Regression** model, supported by **TF-IDF vectorization** and **lemmatization**, provided an effective, interpretable, and deployable solution for movie review sentiment analysis. With an **89% accuracy**, it offers reliable performance in both development and production settings, enabling real-world applications in **feedback systems**, **customer support**, and **market analytics**.
 
 ---
