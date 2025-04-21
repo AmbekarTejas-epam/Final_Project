@@ -2,5 +2,5 @@
 
 /__pychache__
 .idea/
-/data
+/data/processed
 /outputs
